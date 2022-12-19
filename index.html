@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Video Sharing Social Media</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        font-family: sans-serif;
+      }
+      header {
+        background-color: #0066ff;
+        color: #fff;
+        padding: 20px;
+      }
+      nav {
+        background-color: #0066ff;
+        color: #fff;
+      }
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav li {
+        display: inline-block;
+      }
+      nav a {
+        color: #fff;
+        display: block;
+        padding: 20px;
+        text-decoration: none;
+      }
+      nav a:hover {
+        background-color: #3399ff;
+      }
+      main {
+        padding: 20px;
+      }
+      footer {
+        background-color: #0066ff;
+        color: #fff;
+        padding: 20px;
+      }
+      .upload-button {
+        background-color: #0066ff;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+      }
+      .upload-button:hover {
+        background-color: #3399ff;
+      }
+      .video-container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .video-thumbnail {
+        width: 300px;
+        height: 200px;
+        object-fit: cover;
+      }
+    </style>
+    <script>
+      function openUploadModal() {
+        document.getElementById('upload-form').querySelector('input[type="file"]').click();
+      }
+
+      document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the selected file from the file input element
+        var file = this.querySelector('input[type="file"]').files[0];
+
+        // Validate the file type
+        if (!file || !file.type.startsWith('video/')) {
+          alert('Please select a valid video file');
+          return;
+        }
+
+        // Create a new FormData object to store the form data
+        var formData = new FormData();
+
+        // Add the selected file to the form data
+        formData.append('video', file);
+
+        // Send the form data to the server using an XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload', true);
+        xhr.onload = function() {
+          if (xhr.status === 200)
